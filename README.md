@@ -16,6 +16,8 @@ I recommend to have the executable in a folder with the exe and the urls.txt fil
 The download folder will be created automatically if you don't have it.
 
 ## Use in Windows
-
+Open a terminal in the folder where downloader.exe and urls.txt are located. 
+Run the command downloader.exe and watch the files being downloaded. 
 
 ## Uses in Linux
+Coming soon.
