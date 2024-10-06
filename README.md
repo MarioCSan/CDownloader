@@ -1,3 +1,5 @@
+![logo](https://github.com/user-attachments/assets/e2dcaba4-9344-43a1-acec-46e3a2e899bd)
+
 # CDownloader
 A C program for CLI to download videos in mp3 format in bulk. It uses yt-dlp to perform the download.
 
