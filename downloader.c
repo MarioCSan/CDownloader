@@ -35,7 +35,7 @@ int main()
 
 
         #ifdef _WIN32
-            snprintf(command, sizeof(command), "yt-dlp.exe --extract-audio --audio-formt mp3 -o \"mp3_downloads/%%(title)s.%%(ext)s\" \"%s\"", url);
+            snprintf(command, sizeof(command), "yt-dlp.exe --extract-audio --audio-format mp3 -o \"mp3_downloads/%%(title)s.%%(ext)s\" \"%s\"", url);
         #elif __linux__
             snprintf(command, sizeof(command), "yt-dlp --extract-audio --audio-format mp3 -o \"mp3_downloads/%%(title)s.%%(ext)s\" \"%s\"", url);
         #endif
