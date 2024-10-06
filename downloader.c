@@ -12,7 +12,7 @@ int main()
     if (file == NULL)
     {
         printf("Error al abrir el archivo urls.txt\n");
-        printf("introduzca las urls de los videos a descargar en el archivo urls.txt\n");
+        printf("Introduzca las urls de los videos a descargar en el archivo urls.txt\n");
         return 1;
     }
 
@@ -22,6 +22,7 @@ int main()
         system("mkdir mp3_downloads");
     #elif __linux__
         // LINUX
+        printf("Detectado: Linux\n");
         system("mkdir -p mp3_downloads");
     #endif
 
@@ -47,6 +48,6 @@ int main()
 
     // cerrar fichero
     fclose(file);
-    printf("Elementos a descargar: %i\n. Descargas completadas.\n", counterTotales);
+    printf("Elementos a descargar: %i.\nDescargas completadas.\n", counterTotales);
     return 0;
 }
