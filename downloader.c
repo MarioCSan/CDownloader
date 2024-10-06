@@ -12,6 +12,7 @@ int main()
     if (file == NULL)
     {
         printf("Error al abrir el archivo urls.txt\n");
+        printf("introduzca las urls de los videos a descargar en el archivo urls.txt\n");
         return 1;
     }
 
