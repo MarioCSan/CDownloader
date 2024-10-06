@@ -19,8 +19,14 @@ Without this file it will not be possible to download any element as there are n
 The download folder will be created automatically if you don't have it.
 
 ## Use in Windows
+In MS Windows you have to options:
+
 - Open a terminal in the folder where downloader.exe and urls.txt are located.
-- Run the command `downloader.exe` and watch the files being downloaded. 
+- Run the command `downloader.exe` and watch the files being downloaded.
+
+Or
+
+- Double click on the executable
 
 ## Uses in Linux
 Until the executable is created for debian/linux dist, you can use it in the following way:
