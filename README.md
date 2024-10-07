@@ -31,4 +31,6 @@ Or
 ## Uses in Linux
 Until the executable is created for debian/linux dist, you can use it in the following way:
 - Download or clone this repository.
+- Move to the downloaded fólder
+- Open a terminal
 - Once inside the downloaded project folder, run `./downloader` in the terminal.
