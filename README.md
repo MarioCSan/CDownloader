@@ -9,6 +9,7 @@ Make sure you have the following dependencies installed:
 - ffmpeg (only in linux)
 - [yt-dlp](https://github.com/yt-dlp/yt-dlp?tab=readme-ov-file#installation)
 
+Note: In the last version for Windows, the dependencies will be auto installed.
 ## Common configuration 
 
 I recommend to have the executable in a folder with the exe and the urls.txt file.
