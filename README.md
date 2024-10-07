@@ -1,7 +1,7 @@
 ![logo](https://github.com/user-attachments/assets/e2dcaba4-9344-43a1-acec-46e3a2e899bd)
 
 # CDownloader
-A C program for CLI to download videos in mp3 format in bulk. It uses yt-dlp to perform the download.
+A C program to download videos in mp3 format in bulk using yt-dlp to perform the download.
 
 ## Dependencies
 
@@ -31,4 +31,6 @@ Or
 ## Uses in Linux
 Until the executable is created for debian/linux dist, you can use it in the following way:
 - Download or clone this repository.
+- Move to the downloaded fólder
+- Open a terminal
 - Once inside the downloaded project folder, run `./downloader` in the terminal.
