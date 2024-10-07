@@ -12,9 +12,11 @@ Make sure you have the following dependencies installed:
 Note: In the last version for Windows, the dependencies will be auto installed.
 ## Common configuration 
 
-I recommend to have the executable in a folder with the exe and the urls.txt file.
+I recommend to have the executable in a folder with the urls.txt file.
 
-In all systems where it is executable, there must be a file urls.txt containing the urls of the videos to be downloaded. 
+In all systems where it is executable, there must be a file urls.txt containing the urls of the videos to be downloaded.
+
+If the `urls.txt` does not exists, the program will create it.
 Without this file it will not be possible to download any element as there are no urls available.
 
 The download folder will be created automatically if you don't have it.
