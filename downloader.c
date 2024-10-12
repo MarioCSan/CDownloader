@@ -3,8 +3,8 @@
 #include <string.h>
 #include <unistd.h>
 
-int verificar_yt_dlp_instalado();
-void instalar_yt_dlp();
+int verify_yt_dlp_installed();
+void install_yt_dlp();
 
 int main()
 {
@@ -15,30 +15,28 @@ int main()
 
     if (file == NULL)
     {
-        printf("Error al abrir el archivo urls.txt. No existe el fichero.\n");
-        printf("Creando urls.txt\n");
+        printf("Error opening urls.txt file. File does not exist.\n");
+        printf("Creating urls.txt\n");
         sleep(2);
         FILE *archivo = fopen("urls.txt", "w");
-        printf("Rellene urls.txt para poder descargar las canciones.\n");
+        printf("Fill in urls.txt to be able to download the songs.\n");
         sleep(2);
         return 1;
     }
 
     #ifdef _WIN32
         // Comandos para windows
-        printf("Detectado: Windows\n");
+        printf("Detected: Windows\n");
         system("mkdir mp3_downloads");
         
-        if (verificar_yt_dlp_instalado()) {
-            printf("yt-dlp ya ase encuentra instalado.\n");
-        } else {
+        if (!verify_yt_dlp_installed()) {
             // Si no está instalado, procede a instalarlo
-            instalar_yt_dlp();
+           install_yt_dlp();
         }
             
     #elif __linux__
         // LINUX
-        printf("Detectado: Linux\n");
+        printf("Detected: Linux\n");
         system("mkdir -p mp3_downloads");
     #endif
 
@@ -71,18 +69,18 @@ int main()
     // cerrar fichero
     fclose(file);
     sleep(5);
-    printf("Elementos a descargar: %i.\nDescargas completadas.\n", counterTotales);
+    printf("Elements to download: %i.\nDownload completed.\n", counterTotales);
     return 0;
 }
 
-int verificar_yt_dlp_instalado() {
+int verify_yt_dlp_installed() {
     FILE *fp;
     char path[1035];
 
     // Ejecuta el comando yt-dlp --version para verificar si está instalado
     fp = popen("yt-dlp --version", "r");
     if (fp == NULL) {
-        printf("Error al intentar ejecutar el comando.\n");
+        printf("Error when trying to execute the command.\n");
         return 0;
     }
 
@@ -98,13 +96,13 @@ int verificar_yt_dlp_instalado() {
 }
 
 // Función para instalar yt-dlp usando winget
-void instalar_yt_dlp() {
-    printf("yt-dlp no está instalado. Instalando usando winget...\n");
+void install_yt_dlp() {
+    printf("yt-dlp is not installed. Installing using winget...\n");
     int resultado = system("winget install yt-dlp");
     
     if (resultado == 0) {
-        printf("yt-dlp instalado con éxito.\n");
+        printf("yt-dlp successfully installed.\n");
     } else {
-        printf("Error durante la instalación de yt-dlp.\n Intente ejecutar la app como administrador.\n");
+        printf("Error while installing yt-dlp.\n Try running the app as administrator and check your internet connection.\n");
     }
 }
