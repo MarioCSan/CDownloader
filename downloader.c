@@ -2,16 +2,18 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <windows.h>
 
 int verify_yt_dlp_installed();
 void install_yt_dlp();
-
+int verify_if_empty(const char *file_name);
 int main()
 {
     FILE *file;
     char url[256];
 
     file = fopen("urls.txt", "r");
+    const char *file_name = "urls.txt";
 
     if (file == NULL)
     {
@@ -25,12 +27,12 @@ int main()
     }
 
     #ifdef _WIN32
-        // Comandos para windows
+        // Comands for windows
         printf("Detected: Windows\n");
         system("mkdir mp3_downloads");
         
         if (!verify_yt_dlp_installed()) {
-            // Si no está instalado, procede a instalarlo
+            // if not installed, install it
            install_yt_dlp();
         }
             
@@ -39,41 +41,49 @@ int main()
         printf("Detected: Linux\n");
         system("mkdir -p mp3_downloads");
     #endif
+    
+    if(verify_if_empty(file_name) == 0){
+            
+        int counterDescargas = 0;
+        int counterTotales = 0;
 
-    int counterDescargas = 0;
-    int counterTotales = 0;
+        while (fgets(url, sizeof(url), file)){
 
-    while (fgets(url, sizeof(url), file)){
+            // ignore lines that starts with '#'
+            if (url[0] == '#') {
+                continue;
+            }
 
-        // ignore lines that starts with '#'
-        if (url[0] == '#') {
-            continue;
+            // delete return of line
+            url[strcspn(url, "\n")] = 0;
+
+            char command[512];
+
+
+            #ifdef _WIN32
+                snprintf(command, sizeof(command), "yt-dlp.exe --extract-audio --audio-format mp3 -o \"mp3_downloads/%%(title)s.%%(ext)s\" \"%s\"", url);
+            #elif __linux__
+                snprintf(command, sizeof(command), "yt-dlp --extract-audio --audio-format mp3 -o \"mp3_downloads/%%(title)s.%%(ext)s\" \"%s\"", url);
+            #endif
+
+            counterTotales++;
+            system(command);
         }
 
-        // delete return of line
-        url[strcspn(url, "\n")] = 0;
-
-        char command[512];
-
-
-        #ifdef _WIN32
-            snprintf(command, sizeof(command), "yt-dlp.exe --extract-audio --audio-format mp3 -o \"mp3_downloads/%%(title)s.%%(ext)s\" \"%s\"", url);
-        #elif __linux__
-            snprintf(command, sizeof(command), "yt-dlp --extract-audio --audio-format mp3 -o \"mp3_downloads/%%(title)s.%%(ext)s\" \"%s\"", url);
-        #endif
-
-        counterTotales++;
-        system(command);
+        // close file
+        fclose(file);
+        sleep(5);
+        printf("Elements to download: %i.\nDownload completed.\n", counterTotales);
+        return 0;
+    } else {
+        printf("There are not elements to downlaod in urls.txt\n");
+        sleep(2);
     }
-
-    // cerrar fichero
-    fclose(file);
-    sleep(5);
-    printf("Elements to download: %i.\nDownload completed.\n", counterTotales);
-    return 0;
+    
 }
 
-int verify_yt_dlp_installed() {
+int verify_yt_dlp_installed() 
+{
     FILE *fp;
     char path[1035];
 
@@ -96,7 +106,8 @@ int verify_yt_dlp_installed() {
 }
 
 // Función para instalar yt-dlp usando winget
-void install_yt_dlp() {
+void install_yt_dlp() 
+{
     printf("yt-dlp is not installed. Installing using winget...\n");
     int resultado = system("winget install yt-dlp");
     
@@ -105,4 +116,28 @@ void install_yt_dlp() {
     } else {
         printf("Error while installing yt-dlp.\n Try running the app as administrator and check your internet connection.\n");
     }
+}
+
+int verify_if_empty(const char *file_name)
+{
+    FILE *file = fopen(file_name, "r");
+
+    if (file == NULL)
+    {
+        printf("Error to open the file.\n");
+        return 1;
+    }
+
+    fseek(file, 0, SEEK_END);
+
+    long size = ftell(file);
+
+    if (size == 0)
+    {
+        printf("The file %s is empty. Fill in the file to continue.\n", file_name);
+        return 1;   
+    }
+
+    printf("The file %s is not empty, .\n", file_name);
+    return 0;   
 }
