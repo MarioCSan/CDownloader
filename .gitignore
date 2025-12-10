@@ -51,4 +51,8 @@ Module.symvers
 Mkfile.old
 dkms.conf
 
+# project files
+*.txt
 mp3_downloads
+downloader
+urls.txt
